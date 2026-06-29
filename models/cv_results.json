@@ -1,0 +1,14 @@
+{
+  "LinearRegression": {
+    "MAE_mean": 0.839,
+    "MAE_std": 0.047
+  },
+  "RandomForest": {
+    "MAE_mean": 0.853,
+    "MAE_std": 0.035
+  },
+  "XGBoost": {
+    "MAE_mean": 0.921,
+    "MAE_std": 0.036
+  }
+}

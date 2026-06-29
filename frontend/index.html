@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ATMOS — Atmospheric Temporal Modeling & Observation System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-brand">ATMOS</div>
+    <div class="nav-tagline">Atmospheric Temporal Modeling & Observation System</div>
+  </nav>
+
+  <!-- HERO SEARCH -->
+  <section class="hero">
+    <h1 class="hero-title">Real-Time Weather <span class="accent">Forecasting</span></h1>
+    <p class="hero-sub">Powered by Random Forest ML · Open-Meteo API · Live Data</p>
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <input type="text" id="cityInput" placeholder="Enter city name..." autocomplete="off"/>
+        <button id="searchBtn">Search</button>
+      </div>
+      <div id="cityDropdown" class="city-dropdown" style="display:none"></div>
+    </div>
+  </section>
+
+  <!-- TODAY CARDS -->
+  <section class="section" id="weatherSection" style="display:none">
+    <div class="section-header">
+      <h2 id="cityTitle">—</h2>
+      <span id="cityCoords" class="coords">—</span>
+    </div>
+    <div class="cards-grid">
+      <div class="card" id="cardTempMax">
+        <div class="card-label">Max Temp</div>
+        <div class="card-value" id="tempMax">—</div>
+        <div class="card-unit">°C</div>
+      </div>
+      <div class="card" id="cardTempMin">
+        <div class="card-label">Min Temp</div>
+        <div class="card-value" id="tempMin">—</div>
+        <div class="card-unit">°C</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Precipitation</div>
+        <div class="card-value" id="precip">—</div>
+        <div class="card-unit">mm</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Max Wind</div>
+        <div class="card-value" id="wind">—</div>
+        <div class="card-unit">km/h</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Sunrise</div>
+        <div class="card-value" id="sunrise">—</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Sunset</div>
+        <div class="card-value" id="sunset">—</div>
+      </div>
+    </div>
+
+    <!-- TREND CHART -->
+    <div class="chart-container">
+      <h3 class="chart-title">7-Day Temperature Trend</h3>
+      <canvas id="trendChart"></canvas>
+    </div>
+
+    <!-- PREDICT BUTTON -->
+    <div class="predict-section">
+      <button id="predictBtn" class="predict-btn">Run ML Forecast</button>
+    </div>
+  </section>
+
+  <!-- ML PREDICTIONS -->
+  <section class="section" id="predictSection" style="display:none">
+    <h2 class="section-title">ML Forecast — Next 7 Days</h2>
+
+    <!-- Rain Badge -->
+    <div id="rainBadge" class="rain-badge">—</div>
+
+    <!-- Predictions Table -->
+    <div class="table-container">
+      <table class="forecast-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Predicted Max Temp</th>
+            <th>Condition</th>
+            <th>Confidence Range</th>
+          </tr>
+        </thead>
+        <tbody id="forecastTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Forecast Chart -->
+    <div class="chart-container">
+      <h3 class="chart-title">Forecast Trend</h3>
+      <canvas id="forecastChart"></canvas>
+    </div>
+
+    <!-- Feature Importance -->
+    <div class="chart-container">
+      <h3 class="chart-title">Feature Importance</h3>
+      <canvas id="featureChart"></canvas>
+    </div>
+
+    <!-- Model Stats -->
+    <div class="model-stats">
+      <h3 class="chart-title">Model Comparison</h3>
+      <div class="stats-grid" id="modelStatsGrid"></div>
+    </div>
+  </section>
+
+  <!-- COMPARE SECTION -->
+  <section class="section" id="compareSection">
+    <h2 class="section-title">Compare Two Cities</h2>
+    <div class="compare-inputs">
+      <div class="compare-input-wrapper">
+        <input type="text" id="cityAInput" placeholder="City A" autocomplete="off"/>
+        <div id="cityADropdown" class="city-dropdown" style="display:none"></div>
+      </div>
+      <div class="compare-input-wrapper">
+        <input type="text" id="cityBInput" placeholder="City B" autocomplete="off"/>
+        <div id="cityBDropdown" class="city-dropdown" style="display:none"></div>
+      </div>
+      <button id="compareBtn">Compare</button>
+    </div>
+    <div id="compareResults" style="display:none">
+      <div class="compare-grid">
+        <div class="compare-card" id="cityACard"></div>
+        <div class="compare-card" id="cityBCard"></div>
+      </div>
+      <div class="chart-container">
+        <h3 class="chart-title">Temperature Comparison</h3>
+        <canvas id="compareChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>ATMOS — Atmospheric Temporal Modeling & Observation System · Powered by Open-Meteo & scikit-learn</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/main.js?v=10"></script>
+</body>
+</html>
