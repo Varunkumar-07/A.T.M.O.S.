@@ -126,16 +126,16 @@ async function doPredict() {
   finally { btn.textContent = 'Run ML Forecast'; btn.disabled = false; }
 }
 
-const conditionIcons = { 'Rainy': '🌧️', 'Hot': '🔥', 'Sunny': '☀️', 'Partly Cloudy': '⛅', 'Cloudy': '🌥️' };
+const conditionIcons = { 'Rainy': '', 'Hot': '', 'Sunny': '', 'Partly Cloudy': '', 'Cloudy': '' };
 
 function renderPredictions(data) {
   const badge = document.getElementById('rainBadge');
   if (data.rain_tomorrow === 1) {
-    badge.textContent = `🌧️ Rain expected tomorrow — ${data.rain_probability}% confidence`;
+    badge.textContent = `Rain expected tomorrow — ${data.rain_probability}% confidence`;
     badge.style.borderColor = '#38bdf8';
     badge.style.color = '#0369a1';
   } else {
-    badge.textContent = `☀️ No rain expected tomorrow — ${data.rain_probability}% rain probability`;
+    badge.textContent = `No rain expected tomorrow — ${data.rain_probability}% rain probability`;
     badge.style.borderColor = 'rgba(0,0,0,0.12)';
     badge.style.color = '#666666';
   }

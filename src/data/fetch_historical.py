@@ -21,4 +21,4 @@ os.makedirs("data", exist_ok=True)
 
 csv_path = "data/weather_history.csv"
 df.to_csv(csv_path, index=False)
-print(f"✅ Weather data saved to {csv_path}")
+print(f"Weather data saved to {csv_path}")

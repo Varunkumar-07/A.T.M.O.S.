@@ -34,12 +34,12 @@ y_pred = clf.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 report = classification_report(y_test, y_pred, output_dict=True)
 
-print(f"✅ Accuracy: {accuracy:.3f}")
+print(f"Accuracy: {accuracy:.3f}")
 print(classification_report(y_test, y_pred))
 
 # 8. Save classifier
 joblib.dump({"model": clf, "features": FEATURE_COLS}, "models/rain_classifier.pkl")
-print("💾 Classifier saved to models/rain_classifier.pkl")
+print("Classifier saved to models/rain_classifier.pkl")
 
 # 9. Save metrics
 metrics = {
@@ -49,4 +49,4 @@ metrics = {
 }
 with open("models/rain_metrics.json", "w") as f:
     json.dump(metrics, f, indent=2)
-print("📈 Metrics saved to models/rain_metrics.json")
+print("Metrics saved to models/rain_metrics.json")

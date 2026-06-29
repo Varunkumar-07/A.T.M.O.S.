@@ -1,4 +1,3 @@
-# src/models/train.py
 import json
 import numpy as np
 import pandas as pd
@@ -36,21 +35,21 @@ y_pred = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
 rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 
-print(f"✅ Model trained with features: {available_features}")
+print(f"Model trained. Features: {available_features}")
 print(f"MAE: {mae:.2f}, RMSE: {rmse:.2f}")
 
 # 7. Save model & feature list
 joblib.dump({"model": model, "features": available_features}, "models/weather_model.pkl")
-print("💾 Model + features saved to models/weather_model.pkl")
+print("Model saved to models/weather_model.pkl")
 
 # 8. Save feature importance
 importance = dict(zip(available_features, model.feature_importances_))
 with open("models/feature_importance.json", "w") as f:
     json.dump(importance, f, indent=2)
-print("📊 Feature importance saved to models/feature_importance.json")
+print("Feature importance saved to models/feature_importance.json")
 
 # 9. Save metrics
 metrics = {"MAE": round(mae, 2), "RMSE": round(rmse, 2)}
 with open("models/metrics.json", "w") as f:
     json.dump(metrics, f, indent=2)
-print("📈 Metrics saved to models/metrics.json")
+print("Metrics saved to models/metrics.json")

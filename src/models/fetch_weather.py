@@ -2,9 +2,6 @@ import requests
 import pandas as pd
 
 def get_weather_7days(latitude=12.97, longitude=77.59):
-    """
-    Fetch past 3 days, today, and next 3 days weather data (7-day window).
-    """
     url = (
         f"https://api.open-meteo.com/v1/forecast?"
         f"latitude={latitude}&longitude={longitude}"
@@ -17,7 +14,6 @@ def get_weather_7days(latitude=12.97, longitude=77.59):
     response = requests.get(url)
     data = response.json()
 
-    # Convert to DataFrame
     df = pd.DataFrame(data['daily'])
     df["time"] = pd.to_datetime(df["time"])
     return df

@@ -49,4 +49,4 @@ print("-" * 36)
 for name, m in results.items():
     print(f"{name:<20} {m['MAE']:>6.2f} {m['RMSE']:>7.2f}")
 print()
-print("✅ Results saved to models/model_comparison.json")
+print("Results saved to models/model_comparison.json")

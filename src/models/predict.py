@@ -7,12 +7,6 @@ import warnings
 MODEL_PATH = os.getenv("WEATHER_MODEL_PATH", "models/weather_model.pkl")
 
 def _load_artifact(path=MODEL_PATH):
-    """
-    Load the saved artifact. Supports:
-      - plain sklearn estimator
-      - dict {"model": estimator, "features": [list of feature names]}
-    Falls back to default 3-feature set if feature names are unavailable.
-    """
     obj = joblib.load(path)
 
     if isinstance(obj, dict) and "model" in obj:
@@ -20,17 +14,11 @@ def _load_artifact(path=MODEL_PATH):
         features = obj.get("features")
     else:
         model = obj
-        # Some sklearn models store feature names here (since sklearn 1.0+)
         features = getattr(model, "feature_names_in_", None)
 
     if features is None:
-        # Fallback to the original 3-feature training setup
         features = ["temperature_2m_max", "temperature_2m_min", "precipitation_sum"]
-        warnings.warn(
-            "Model artifact did not include feature names. "
-            "Assuming legacy 3-feature model: "
-            f"{features}"
-        )
+        warnings.warn(f"Model artifact has no feature names. Falling back to: {features}")
     else:
         features = list(features)
 
@@ -39,14 +27,9 @@ def _load_artifact(path=MODEL_PATH):
 
 # Load once at import
 _model, _features = _load_artifact()
-print(f"✅ Model loaded! Expecting features: {_features}")
+print(f"Model loaded. Features: {_features}")
 
 def get_prediction(temperature_max=30.0, temperature_min=22.0, precipitation=0.0, windspeed=5.0, temp_max_lag1=None, temp_min_lag1=None):
-    """
-    Predict next-day max temperature.
-    This function is resilient: it will ONLY pass the features the model was trained with.
-    Extra inputs (e.g., windspeed) are ignored if the model didn't see them during fit.
-    """
     # Gather all potential inputs
     full_input = {
         "temperature_2m_max": float(temperature_max),
@@ -73,4 +56,4 @@ def get_prediction(temperature_max=30.0, temperature_min=22.0, precipitation=0.0
 
 if __name__ == "__main__":
     p = get_prediction()
-    print(f"🌡️ Predicted next-day max temperature: {p}°C")
+    print(f"Predicted next-day max temp: {p}°C")
