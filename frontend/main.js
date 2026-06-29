@@ -144,7 +144,7 @@ function renderPredictions(data) {
   data.predictions.forEach(p => {
     const icon = conditionIcons[p.condition] || '';
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${p.date}</td><td style="color:#0a0a0a;font-weight:600">${p.temp_max}°C</td><td>${icon} ${p.condition}</td><td style="color:#888">± ${p.confidence_range}°C</td>`;
+    tr.innerHTML = `<td>${p.date}</td><td style="color:#e8f4fd;font-weight:600">${p.temp_max}°C</td><td>${icon} ${p.condition}</td><td style="color:rgba(232,244,253,0.45)">± ${p.confidence_range}°C</td>`;
     tbody.appendChild(tr);
   });
   const labels = data.predictions.map(p => p.date.slice(5));

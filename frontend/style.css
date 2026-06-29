@@ -5,25 +5,47 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --bg2: #f5f5f5;
-  --glass: rgba(0,0,0,0.04);
-  --glass-border: rgba(0,0,0,0.08);
-  --red: #38bdf8;
-  --red-dim: rgba(56,189,248,0.15);
-  --white: #0a0a0a;
-  --grey: #666666;
-  --grey-light: #333333;
+  --bg: #020b18;
+  --bg2: #071628;
+  --glass: rgba(13,34,64,0.5);
+  --glass-border: rgba(232,244,253,0.12);
+  --red: #5eb8ff;
+  --red-dim: rgba(94,184,255,0.15);
+  --white: #e8f4fd;
+  --grey: rgba(232,244,253,0.45);
+  --grey-light: rgba(232,244,253,0.7);
   --font-main: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
+
+  --sky-deep: #020b18;
+  --sky-mid: #071628;
+  --sky-surface: #0d2240;
+  --horizon: #0a3a6b;
+  --cloud: #e8f4fd;
+  --cloud-dim: rgba(232,244,253,0.5);
+  --cloud-ghost: rgba(232,244,253,0.12);
+  --rain: #5eb8ff;
+  --rain-dim: rgba(94,184,255,0.4);
+  --storm: #ff6b35;
+  --sun: #ffd166;
+  --border: rgba(232,244,253,0.08);
+  --border-hi: rgba(232,244,253,0.18);
+  --muted: rgba(232,244,253,0.38);
+  --dim: rgba(232,244,253,0.18);
 }
 
 body {
-  background: var(--bg);
+  background: var(--sky-deep);
   color: var(--white);
   font-family: var(--font-body);
   min-height: 100vh;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
 }
 
 /* NAVBAR */
@@ -35,7 +57,7 @@ body {
   border-bottom: 1px solid var(--glass-border);
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.85);
+  background: rgba(2,11,24,0.85);
   backdrop-filter: blur(20px);
   z-index: 100;
 }
@@ -121,7 +143,7 @@ body {
   background: var(--red);
   border: none;
   padding: 1rem 1.8rem;
-  color: var(--white);
+  color: var(--sky-deep);
   font-family: var(--font-main);
   font-weight: 600;
   font-size: 0.9rem;
@@ -252,7 +274,7 @@ body {
 
 .predict-btn:hover {
   background: var(--red);
-  color: var(--white);
+  color: var(--sky-deep);
 }
 
 /* RAIN BADGE */
@@ -294,7 +316,7 @@ body {
 .forecast-table td {
   padding: 1rem 1.5rem;
   font-size: 0.9rem;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid var(--glass-border);
   color: var(--grey-light);
 }
 
@@ -303,7 +325,7 @@ body {
 }
 
 .forecast-table tr:hover td {
-  background: rgba(0,0,0,0.02);
+  background: rgba(232,244,253,0.04);
   color: var(--white);
 }
 
@@ -374,7 +396,7 @@ body {
   border: none;
   border-radius: 10px;
   padding: 0.9rem 2rem;
-  color: var(--white);
+  color: var(--sky-deep);
   font-family: var(--font-main);
   font-weight: 600;
   font-size: 0.9rem;
@@ -411,7 +433,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 0.6rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid var(--glass-border);
   font-size: 0.9rem;
 }
 
@@ -456,12 +478,13 @@ body {
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: #ffffff;
-  border: 1px solid rgba(56,189,248,0.3);
+  background: rgba(7,22,40,0.97);
+  border: 1px solid rgba(94,184,255,0.25);
   border-radius: 12px;
   overflow: hidden;
   z-index: 999;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
 }
 
 .dropdown-item {
@@ -475,9 +498,9 @@ body {
 }
 
 .dropdown-item:last-child { border-bottom: none; }
-.dropdown-item:hover { background: rgba(56,189,248,0.08); }
-.dropdown-city { font-size: 0.95rem; color: #0a0a0a; font-weight: 500; }
-.dropdown-meta { font-size: 0.75rem; color: #888888; }
+.dropdown-item:hover { background: rgba(94,184,255,0.1); }
+.dropdown-city { font-size: 0.95rem; color: var(--white); font-weight: 500; }
+.dropdown-meta { font-size: 0.75rem; color: var(--grey); }
 
 .compare-input-wrapper {
   position: relative;
@@ -486,4 +509,51 @@ body {
 }
 .compare-input-wrapper input {
   width: 100%;
+}
+
+/* BACKGROUND LAYER */
+#starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: var(--lo, 0.2); }
+  50% { opacity: var(--hi, 0.9); }
+}
+
+#atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(10,58,107,0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 20% 80%, rgba(5,30,60,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 20% at 80% 70%, rgba(14,50,90,0.3) 0%, transparent 50%);
+}
+
+.cloud-float {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+  font-size: 200px;
+  animation: float-cloud var(--dur, 60s) linear infinite;
+  top: var(--top, 20%);
+}
+
+@keyframes float-cloud {
+  from { transform: translateX(-300px); }
+  to   { transform: translateX(calc(100vw + 300px)); }
 }

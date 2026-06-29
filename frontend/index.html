@@ -6,16 +6,23 @@
   <title>ATMOS — Weather Forecast</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v=2">
 </head>
 <body>
 
+  <div id="starfield"></div>
+  <div id="atmosphere"></div>
+  <div class="cloud-float" style="--top:15%;--dur:90s;animation-delay:-30s;">☁</div>
+  <div class="cloud-float" style="--top:55%;--dur:120s;animation-delay:-60s;font-size:140px;">☁</div>
+  <div class="cloud-float" style="--top:35%;--dur:75s;animation-delay:-10s;font-size:100px;">☁</div>
+
   <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="nav-brand">ATMOS</div>
+    <div class="nav-brand">VS7 x A.T.M.O.S.</div>
     <div class="nav-tagline">Atmospheric Temporal Modeling & Observation System</div>
   </nav>
 
+  <main class="main-content">
   <!-- HERO SEARCH -->
   <section class="hero">
     <h1 class="hero-title">Real-Time Weather <span class="accent">Forecasting</span></h1>
@@ -145,12 +152,31 @@
     </div>
   </section>
 
+  </main>
+
   <!-- FOOTER -->
   <footer class="footer">
-    <p>ATMOS — Atmospheric Temporal Modeling & Observation System · Open-Meteo & scikit-learn</p>
+    <p>A.T.M.O.S. - Atmospheric Temporal Modeling & Observation System · Open-Meteo & scikit-learn</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="/static/main.js?v=10"></script>
+  <script>
+    const sf = document.getElementById('starfield');
+    for (let i = 0; i < 120; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const sz = Math.random() * 2 + 0.5;
+      s.style.cssText = `
+        width:${sz}px;height:${sz}px;
+        left:${Math.random() * 100}%;top:${Math.random() * 100}%;
+        --lo:${0.1 + Math.random() * 0.2};
+        --hi:${0.5 + Math.random() * 0.5};
+        --d:${2 + Math.random() * 4}s;
+        --delay:-${Math.random() * 4}s;
+      `;
+      sf.appendChild(s);
+    }
+  </script>
 </body>
 </html>
